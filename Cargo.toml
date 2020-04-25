@@ -1,9 +1,11 @@
 [package]
 name = "spice-sys"
-version = "0.1.0"
-authors = ["rpower"]
+version = "0.0.1"
+authors = ["Rolfe Power <rolfepower4@gmail.com>"]
 edition = "2018"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+description = "Rust wrapper for the spice ephemeris library from NAIF"
+homepage = "https://github.com/rjpower4/spice-sys"
+build = "build.rs"
 
 [dependencies]
+libc = "0.2.69"
