@@ -14,7 +14,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Get kernels
-      run: ./scripts/getkernels.sh
+      run: sh ./scripts/getkernels.sh
     - name: Build
       run: cargo build --verbose
     - name: Run tests
