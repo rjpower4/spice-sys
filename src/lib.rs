@@ -28,6 +28,7 @@ pub struct SpiceDLADescrC {
     c_size: SpiceInt,
 }
 
+/// Number of coordinate system parameters in DSK descriptor
 const SPICE_DSK_NSYPAR: uintptr_t  = 10;
 
 /// DSK segment descriptor
