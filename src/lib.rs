@@ -1,13 +1,13 @@
 use libc::{c_char, c_double, c_float, c_int, c_long, c_short, c_void, uintptr_t};
 
 // Definitions corresponding to the defs in CSPICE
-type SpiceLong = c_long;
-type SpiceInt = c_int; // this may be wrong for windows...
-type SpiceShort = c_short;
-type SpiceChar = c_char;
-type SpiceDouble = c_double;
-type SpiceFloat = c_float;
-type SpiceBoolean = c_int;
+pub type SpiceLong = c_long;
+pub type SpiceInt = c_int; // this may be wrong for windows...
+pub type SpiceShort = c_short;
+pub type SpiceChar = c_char;
+pub type SpiceDouble = c_double;
+pub type SpiceFloat = c_float;
+pub type SpiceBoolean = c_int;
 
 #[repr(C)]
 pub struct SpiceCellC {
