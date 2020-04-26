@@ -1,6 +1,6 @@
 [package]
 name = "spice-sys"
-version = "0.0.1"
+version = "0.1.0"
 authors = ["Rolfe Power <rolfepower4@gmail.com>"]
 edition = "2018"
 description = "Thin wrapper for the C language implementation spice toolkit from NAIF"
