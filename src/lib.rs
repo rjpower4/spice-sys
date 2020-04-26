@@ -1,10 +1,13 @@
-use libc::{c_char, c_double, c_int, c_void};
+use libc::{c_char, c_double, c_float, c_int, c_long, c_short, c_void, uintptr_t};
 
-#[repr(C)]
-pub enum SpiceBooleanC {
-    SpiceFalse,
-    SpiceTrue,
-}
+// Definitions corresponding to the defs in CSPICE
+type SpiceLong = c_long;
+type SpiceInt = c_int; // this may be wrong for windows...
+type SpiceShort = c_short;
+type SpiceChar = c_char;
+type SpiceDouble = c_double;
+type SpiceFloat = c_float;
+type SpiceBoolean = c_int;
 
 #[repr(C)]
 pub struct SpiceCellC {
@@ -15,15 +18,39 @@ pub struct SpiceCellC {
 // by adding an '_' to avoid `isize` as it's a keyword.
 #[repr(C)]
 pub struct SpiceDLADescrC {
-    bwdptr: c_int,
-    fwdptr: c_int,
-    i_base: c_int,
-    i_size: c_int,
-    d_base: c_int,
-    d_size: c_int,
-    c_base: c_int,
-    c_size: c_int,
+    bwdptr: SpiceInt,
+    fwdptr: SpiceInt,
+    i_base: SpiceInt,
+    i_size: SpiceInt,
+    d_base: SpiceInt,
+    d_size: SpiceInt,
+    c_base: SpiceInt,
+    c_size: SpiceInt,
 }
+
+const SPICE_DSK_NSYPAR: uintptr_t  = 10;
+
+/// DSK segment descriptor
+#[repr(C)]
+pub struct SpiceDSKDescrC {
+    surfce: SpiceInt,
+    center: SpiceInt,
+    dclass: SpiceInt,
+    dtype: SpiceInt,
+    frmcde: SpiceInt,
+    corsys: SpiceInt,
+    corpar: [SpiceInt; SPICE_DSK_NSYPAR], // Note this array length is hard-coded in CSPICE
+    co1min: SpiceDouble,
+    co1max: SpiceDouble,
+    co2min: SpiceDouble,
+    co2max: SpiceDouble,
+    co3min: SpiceDouble,
+    co3max: SpiceDouble,
+    start: SpiceDouble,
+    stop: SpiceDouble,
+}
+
+
 
 #[link(name = "cspice")]
 extern "C" {
