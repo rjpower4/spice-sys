@@ -3,9 +3,15 @@ name = "spice-sys"
 version = "0.0.1"
 authors = ["Rolfe Power <rolfepower4@gmail.com>"]
 edition = "2018"
-description = "Rust wrapper for the spice ephemeris library from NAIF"
+description = "Thin wrapper for the C language implementation spice toolkit from NAIF"
 homepage = "https://github.com/rjpower4/spice-sys"
+repository = "https://github.com/rjpower4/spice-sys"
 build = "build.rs"
+readme = "README.md"
+license = "MIT"
+license-file = "LICENSE"
+keywords = ["ffi", "space", "astrodynamics", "satellite", "spice"]
+categories = ["external-ffi-bindings", "mathematics", "science"]
 
 [dependencies]
 libc = "0.2.69"
