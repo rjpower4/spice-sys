@@ -9,7 +9,6 @@ repository = "https://github.com/rjpower4/spice-sys"
 build = "build.rs"
 readme = "README.md"
 license = "MIT"
-license-file = "LICENSE"
 keywords = ["ffi", "space", "astrodynamics", "satellite", "spice"]
 categories = ["external-ffi-bindings", "mathematics", "science"]
 
