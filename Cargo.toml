@@ -11,6 +11,7 @@ readme = "README.md"
 license = "MIT"
 keywords = ["ffi", "space", "astrodynamics", "satellite", "spice"]
 categories = ["external-ffi-bindings", "mathematics", "science"]
+exclude = [ "thirdparty" ]
 
 [dependencies]
 libc = "0.2.69"
