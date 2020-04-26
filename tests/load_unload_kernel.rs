@@ -4,17 +4,42 @@ use std::path::PathBuf;
 
 #[test]
 fn test_load_unload_kernel() {
-    let mut spk_path: PathBuf = ["thirdparty", "testkernels", "de430.bsp"].iter().collect();
-    let mut tls_path: PathBuf = ["thirdparty", "testkernels", "naif0012.tls"].iter().collect();
+    let spk_path: PathBuf = ["thirdparty", "testkernels", "de430.bsp"].iter().collect();
+    let tls_path: PathBuf = ["thirdparty", "testkernels", "naif0012.tls"]
+        .iter()
+        .collect();
     let spk_kern_name = CString::new(spk_path.as_path().to_str().unwrap()).unwrap();
     let tls_kern_name = CString::new(tls_path.as_path().to_str().unwrap()).unwrap();
+    let kern_type_all = CString::new("all").unwrap();
+    let mut k = 0;
 
     unsafe {
-        // Load the kernels
+        // Load the SPK
         furnsh_c(spk_kern_name.as_ptr());
+
+        // Ensure that it was loaded
+        ktotal_c(kern_type_all.as_ptr(), &mut k);
+        assert_eq!(k, 1);
+
+        // Load the LSK
         furnsh_c(tls_kern_name.as_ptr());
 
+        // Ensure that it was loaded
+        ktotal_c(kern_type_all.as_ptr(), &mut k);
+        assert_eq!(k, 2);
+
+        // Unload the SPK
         unload_c(spk_kern_name.as_ptr());
-        unload_c(spk_kern_name.as_ptr());
+
+        // Ensure that it was unloaded
+        ktotal_c(kern_type_all.as_ptr(), &mut k);
+        assert_eq!(k, 1);
+
+        // Unload the LSK
+        unload_c(tls_kern_name.as_ptr());
+
+        // Ensure that it was unloaded
+        ktotal_c(kern_type_all.as_ptr(), &mut k);
+        assert_eq!(k, 0);
     }
 }
