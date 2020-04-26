@@ -93,7 +93,7 @@ extern "C" {
     pub fn scdecd_c(sc: c_int, sclkdp: c_double, lenout: c_int, sclkch: *mut c_char);
 
     /// determines whether values exist for some item for a body in the kernel pool.
-    pub fn bodfnd_c(body: c_int, item: *const c_char) -> SpiceBooleanC;
+    pub fn bodfnd_c(body: c_int, item: *const c_char) -> SpiceBoolean;
 
     /// retrieves from the kernel pool the values of an item associated with a body.
     pub fn bodvrd_c(
@@ -229,7 +229,7 @@ extern "C" {
     pub fn ckcov_c(
         ck: *const c_char,
         idcode: c_int,
-        needav: SpiceBooleanC,
+        needav: SpiceBoolean,
         level: *const c_char,
         tol: c_double,
         timsys: *const c_char,
@@ -244,7 +244,7 @@ extern "C" {
         reff: *const c_char,
         cmat: *const *const c_double,
         clkout: *mut c_double,
-        founnd: *mut SpiceBooleanC,
+        founnd: *mut SpiceBoolean,
     );
 
     /// gets pointing and angular velocity for a specified CK ID at a specified SCLK time.
@@ -256,7 +256,7 @@ extern "C" {
         cmat: *mut *mut c_double,
         av: *mut c_double,
         clkout: *mut c_double,
-        found: *mut SpiceBooleanC,
+        found: *mut SpiceBoolean,
     );
 
     /// returns the field-of-view (FOV) configuration for a specified instrument.
@@ -279,7 +279,7 @@ extern "C" {
         room: c_int,
         n: *mut c_int,
         values: *mut c_double,
-        found: *mut SpiceBooleanC,
+        found: *mut SpiceBoolean,
     );
 
     /// returns the integer value of a kernel variable from the kernel pool.
@@ -289,7 +289,7 @@ extern "C" {
         room: c_int,
         n: *mut c_int,
         ivals: *mut c_int,
-        found: *mut SpiceBooleanC,
+        found: *mut SpiceBoolean,
     );
 
     /// returns the character value of a kernel variable from the kernel pool.
@@ -299,7 +299,7 @@ extern "C" {
         room: c_int,
         n: *mut c_int,
         cvals: *mut c_void,
-        found: *mut SpiceBooleanC,
+        found: *mut SpiceBoolean,
     );
 
     /// maps an array of planetocentric longitude/latitude coordinate pairs to
@@ -359,26 +359,44 @@ extern "C" {
     pub fn dsksrf_c(dsk: *const c_char, bodyid: c_int, srfids: *mut SpiceCellC);
 
     /// translates the NAIF integer code of a body into a common name for that body.
-    pub fn bodc2n_c(code: c_int, lenout: c_int, name: *mut c_char, found: *mut SpiceBooleanC);
+    pub fn bodc2n_c(code: c_int, lenout: c_int, name: *mut c_char, found: *mut SpiceBoolean);
 
     /// translates the name of a body or object to the corresponding NAIF integer ID code.
-    pub fn bodn2c_c(name: *const c_char, code: *mut c_int, found: *mut SpiceBooleanC);
+    pub fn bodn2c_c(name: *const c_char, code: *mut c_int, found: *mut SpiceBoolean);
 
-    // TODO
     /// translates a surface ID code, together with a body name, to the corresponding surface name.
-    pub fn srfcss_c();
+    pub fn srfcss_c(
+        code: c_int,
+        bodstr: *const c_char,
+        srflen: c_int,
+        srfstr: *mut c_char,
+        isname: *mut SpiceBoolean,
+    );
 
-    // TODO
     /// translates a surface string, together with a body name, to the corresponding surface ID code.
-    pub fn srfs2c_c();
+    pub fn srfs2c_c(
+        srfstr: *const c_char,
+        bodstr: *const c_char,
+        code: *mut c_int,
+        found: *mut SpiceBoolean,
+    );
 
-    // TODO
     /// translates a surface ID code, together with a body ID code, to the corresponding surface name.
-    pub fn srfc2s_c();
+    pub fn srfc2s_c(
+        code: c_int,
+        bodyid: c_int,
+        srflen: c_int,
+        srfstr: *mut c_char,
+        isname: *mut SpiceBoolean,
+    );
 
-    // TODO
     /// translates a surface string, together with a body ID code, to the corresponding surface ID code.
-    pub fn srfscc_c();
+    pub fn srfscc_c(
+        srfstr: *const c_char,
+        bodyid: c_int,
+        code: *mut c_int,
+        found: *mut SpiceBoolean,
+    );
 
     /// converts from rectangular to planetocentric coordinates.
     pub fn reclat_c(
@@ -441,43 +459,126 @@ extern "C" {
         rectan: *mut c_double,
     );
 
-    // TODO
     /// computes the surface intercept point of the ray on a body, modeled as an
     /// ellipsoid or a digital shape (DSK), at a specified epoch.
-    pub fn sincpt_c();
+    pub fn sincpt_c(
+        method: *const c_char,
+        target: *const c_char,
+        et: c_double,
+        fixref: *const c_char,
+        abcorr: *const c_char,
+        obsrvr: *const c_char,
+        dref: *const c_char,
+        dvec: *const c_double,
+        spoint: *mut c_double,
+        trgepc: *mut c_double,
+        srfvec: *mut c_double,
+        found: *mut SpiceBoolean,
+    );
 
-    // TODO
     /// computes ray-surface intercepts for a set of rays, using data provided
     /// by multiple loaded DSK segments.
-    pub fn dskxv_c();
+    pub fn dskxv_c(
+        pri: SpiceBoolean,
+        target: *const c_char,
+        nsurf: c_int,
+        srflst: *const c_int,
+        et: c_double,
+        fixref: *const c_char,
+        nrays: c_int,
+        vtxarr: *const *const c_double,
+        dirarr: *const *const c_double,
+        xptarr: *mut *mut c_double,
+        fndarr: *mut SpiceBoolean,
+    );
 
-    // TODO
     /// computes a ray-surface intercept using data provided by multiple loaded
     /// DSK segments and returns information about the source of the data
     /// defining the surface on which the intercept was found.
-    pub fn dskxsi_c();
+    pub fn dskxsi_c(
+        pri: SpiceBoolean,
+        target: *const c_char,
+        nsurf: c_int,
+        srflst: *const c_int,
+        et: c_double,
+        fixref: *const c_char,
+        vertex: *const c_double,
+        raydir: *const c_double,
+        maxd: c_int,
+        maxi: c_int,
+        xpt: *mut c_double,
+        handle: *mut c_int,
+        dladsc: *mut SpiceDLADescrC,
+        dskdsc: *mut SpiceDSKDescrC,
+        dc: *mut c_double,
+        ic: *mut c_int,
+        found: *mut SpiceBoolean,
+    );
 
-    // TODO
     /// computes the sub-observer point on a body, modeled as an ellipsoid or
     /// a digital shape (DSK), at a particular epoch.
-    pub fn subpnt_c();
+    pub fn subpnt_c(
+        method: *const c_char,
+        target: *const c_char,
+        et: c_double,
+        fixref: *const c_char,
+        abcorr: *const c_char,
+        obsrvr: *const c_char,
+        spoint: *mut c_double,
+        trgepc: *mut c_double,
+        srfvec: *mut c_double,
+    );
 
-    // TODO
     /// computes the sub-solar point on a body, modeled as an ellipsoid or a
     /// digital shape (DSK), as seen by an observer at a particular epoch.
-    pub fn subslr_c();
+    pub fn subslr_c(
+        method: *const c_char,
+        target: *const c_char,
+        et: c_double,
+        fixref: *const c_char,
+        abcorr: *const c_char,
+        obsrvr: *const c_char,
+        spoint: *mut c_double,
+        trgepc: *mut c_double,
+        srfvec: *mut c_double,
+    );
 
-    // TODO
     /// computes the illumination angles at a specified surface point of a
     /// target body, modeled as an ellipsoid or a digital shape (DSK), as
     /// seen from an observer body, illuminated by the Sun.
-    pub fn ilumin_c();
+    pub fn ilumin_c(
+        method: *const c_char,
+        target: *const c_char,
+        et: c_double,
+        fixref: *const c_char,
+        abcorr: *const c_char,
+        obsrvr: *const c_char,
+        spoint: *const c_double,
+        trgepc: *mut c_double,
+        srfvec: *mut c_double,
+        phase: *mut c_double,
+        incdnc: *mut c_double,
+        emissn: *mut c_double,
+    );
 
-    // TODO
     /// computes the illumination angles at a specified surface point of a
     /// target body, modeled as an ellipsoid or a digital shape (DSK), as
     /// seen from an observer body, illuminated by a user specified body.
-    pub fn illumg_c();
+    pub fn illumg_c(
+        method: *const c_char,
+        target: *const c_char,
+        ilusrc: *const c_char,
+        et: c_double,
+        fixref: *const c_char,
+        abcorr: *const c_char,
+        obsrvr: *const c_char,
+        spoint: *const c_double,
+        trgepc: *mut c_double,
+        srfvec: *mut c_double,
+        phase: *mut c_double,
+        incdnc: *mut c_double,
+        emissn: *mut c_double,
+    );
 
     /// computes the illumination angles at a specified surface point of a
     /// target body, modeled as an ellipsoid or a digital shape (DSK), as
@@ -497,8 +598,8 @@ extern "C" {
         srfvec: *mut c_double,
         phase: *mut c_double,
         incdnc: *mut c_double,
-        visibl: *mut SpiceBooleanC,
-        lit: *mut SpiceBooleanC,
+        visibl: *mut SpiceBoolean,
+        lit: *mut SpiceBoolean,
     );
 
     /// computes the apparent phase angle between the centers of target,
@@ -572,7 +673,7 @@ extern "C" {
         abcorr: *const c_char,
         obsrvr: *const c_char,
         et: *const c_double,
-        visible: *mut SpiceBooleanC,
+        visible: *mut SpiceBoolean,
     );
 
     /// determines if a specified ephemeris object is within the FOV of a
@@ -585,7 +686,7 @@ extern "C" {
         abcorr: *const c_char,
         obsrvr: *const c_char,
         et: *const c_double,
-        visible: *mut SpiceBooleanC,
+        visible: *mut SpiceBoolean,
     );
 
     /// determines the occultation condition (not occulted, partially,
@@ -932,7 +1033,7 @@ extern "C" {
     pub fn vequ_c(vin: *const c_double, vout: *mut c_double);
 
     /// indicates whether a 3D vector is the zero vector.
-    pub fn vzero_c(v: *const c_double) -> SpiceBooleanC;
+    pub fn vzero_c(v: *const c_double) -> SpiceBoolean;
 
     /// finds the separation angle between two 3D vectors.
     pub fn vsep_c(v1: *const c_double, v2: *const c_double) -> c_double;
