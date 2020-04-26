@@ -5,7 +5,7 @@ use std::path::PathBuf;
 #[test]
 fn test_load_unload_kernel() {
     let spk_path: PathBuf = ["thirdparty", "testkernels", "de430.bsp"].iter().collect();
-    let lsk_path: PathBuf = ["thirdparty", "testkernels", "naif0012.lsk"]
+    let lsk_path: PathBuf = ["thirdparty", "testkernels", "naif0012.tls"]
         .iter()
         .collect();
     let spk_kern_name = CString::new(spk_path.as_path().to_str().unwrap()).unwrap();
