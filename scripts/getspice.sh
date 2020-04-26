@@ -2,17 +2,16 @@
 
 tarfile="cspice.tar.Z"
 
-if [ ! -d "thirdparty" ]; then
-    mkdir thirdparty
+if [ ! -d "$OUT_DIR/thirdparty" ]; then
+    mkdir $OUT_DIR/thirdparty
 fi
 
-if [ ! -d "thirdparty/cspice" ]; then
-    if [ ! -f "thirdparty/${tarfile}" ]; then
-        wget "http://naif.jpl.nasa.gov/pub/naif/toolkit//C/PC_Linux_GCC_64bit/packages/cspice.tar.Z"
-        mv $tarfile thirdparty/$tarfile
+if [ ! -d "$OUT_DIR/thirdparty/cspice" ]; then
+    if [ ! -f "$OUT_DIR/thirdparty/${tarfile}" ]; then
+        wget "http://naif.jpl.nasa.gov/pub/naif/toolkit//C/PC_Linux_GCC_64bit/packages/cspice.tar.Z" -P $OUT_DIR/thirdparty/
     fi
-    tar -xf thirdparty/$tarfile -C thirdparty/
+    tar -xf $OUT_DIR/thirdparty/$tarfile -C $OUT_DIR/thirdparty/
 
-    mv thirdparty/cspice/lib/cspice.a thirdparty/cspice/lib/libcspice.a
-    mv thirdparty/cspice/lib/csupport.a thirdparty/cspice/lib/libcsupport.a
+    mv $OUT_DIR/thirdparty/cspice/lib/cspice.a $OUT_DIR/thirdparty/cspice/lib/libcspice.a
+    mv $OUT_DIR/thirdparty/cspice/lib/csupport.a $OUT_DIR/thirdparty/cspice/lib/libcsupport.a
 fi
