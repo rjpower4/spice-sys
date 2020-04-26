@@ -29,7 +29,7 @@ pub struct SpiceDLADescrC {
 }
 
 /// Number of coordinate system parameters in DSK descriptor
-const SPICE_DSK_NSYPAR: uintptr_t  = 10;
+const SPICE_DSK_NSYPAR: uintptr_t = 10;
 
 /// DSK segment descriptor
 #[repr(C)]
@@ -50,8 +50,6 @@ pub struct SpiceDSKDescrC {
     start: SpiceDouble,
     stop: SpiceDouble,
 }
-
-
 
 #[link(name = "cspice")]
 extern "C" {
