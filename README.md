@@ -1,6 +1,7 @@
 # spice-sys
-![Rust](https://github.com/rjpower4/spice-sys/workflows/Rust/badge.svg)
+[![crate](https://img.shields.io/crates/v/spice-sys.svg)](https://crates.io/crates/spice-sys)
 [![documentation](https://docs.rs/spice-sys/badge.svg)](https://docs.rs/spice-sys)
+![Rust](https://github.com/rjpower4/spice-sys/workflows/Rust/badge.svg)
 
 Rust bindings for the [NAIF spice toolkit](https://naif.jpl.nasa.gov/naif/toolkit.html).
 This crate serves as a thin wrapper around the C implementation of the spice toolkit. 
